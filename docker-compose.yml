@@ -10,19 +10,19 @@ services:
   mysql:
     image: mysql:1.0
     container_name: mysql # --name mysql
-    environment:
-      - MYSQL_ROOT_PASSWORD=ExpenseApp@1
-      - MYSQL_USER=expense
-      - MYSQL_PASSWORD=ExpenseApp@1
-      - MYSQL_DATABASE=transactions
+    # environment:
+    #   - MYSQL_ROOT_PASSWORD=ExpenseApp@1
+    #   - MYSQL_USER=expense
+    #   - MYSQL_PASSWORD=ExpenseApp@1
+    #   - MYSQL_DATABASE=transactions
     volumes: #volume mounting
     - source: mysql
       target: /var/lib/mysql 
-      type: volume 
+      type: volume # -v volume-name:/path/in/container
   backend:
     image: backend:1.0
     container_name: backend 
-    command: sh -c "sleep 20 && node opt/server/index.js" #backend should be wait for create the schema in mysql
+    command: sh -c "sleep 50 && node opt/server/index.js" #backend should be wait for create the schema in mysql
     depends_on:
     -  mysql
   frontend:

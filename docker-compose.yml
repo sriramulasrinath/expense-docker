@@ -1,22 +1,23 @@
-version: '3.8'
+#version: '3.8'
 name: expense
 networks:
   default:
     name: expense 
-volumes:
+volumes: #volume creation
   mysql:
     external: true 
 services:
   mysql:
     image: mysql:1.0
     container_name: mysql # --name mysql
-    volumes:
+    volumes: #volume mounting
     - source: mysql
       target: /var/lib/mysql 
       type: volume 
   backend:
     image: backend:1.0
     container_name: backend 
+    command: sh -c "sleep 20 && node opt/server/index.js" #backend should be wait for create the schema in mysql
     depends_on:
     -  mysql
   frontend:
